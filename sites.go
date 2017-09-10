@@ -6,10 +6,10 @@ type Site struct {
 	ID          string `json:"_id"`
 	Description string `json:"desc"`
 	Name        string `json:"name"`
-	NumAPs      int    `json:"num_ap"`
-	NumUsers    int    `json:"num_user"`
-	NumGuests   int    `json:"num_guest"`
-	NumStations int    `json:"num_sta"`
+	NumAPs      int    `json:"health,num_ap"`
+	NumUsers    int    `json:"health,num_user"`
+	NumGuests   int    `json:"health,num_guest"`
+	NumStations int
 	Role        string `json:"role"`
 }
 
