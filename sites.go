@@ -3,7 +3,7 @@ package unifi
 // A Site is a physical location with UniFi devices managed by a UniFi
 // Controller.
 
-type site struct {
+type Site struct {
 	ID               string   `json:"_id"`
 	AttrHiddenID     string   `json:"attr_hidden_id,omitempty"`
 	AttrNoDelete     bool     `json:"attr_no_delete,omitempty"`
@@ -33,9 +33,9 @@ type health struct {
 }
 
 // Sites returns all of the Sites managed by a UniFi Controller.
-func (c *Client) sites() ([]*site, error) {
+func (c *Client) Sites() ([]*Site, error) {
 	var v struct {
-		Sites []*site `json:"data"`
+		Sites []*Site `json:"data"`
 	}
 
 	req, err := c.newRequest(
