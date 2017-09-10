@@ -17,7 +17,7 @@ func (c *Client) Sites() ([]*Site, error) {
 
 	_, err = c.do(req, &v)
 
-	req, err := c.newRequest(
+	req, err = c.newRequest(
 		"GET",
 		"/api/self/sites",
 		nil,
