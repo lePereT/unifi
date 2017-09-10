@@ -24,7 +24,7 @@ type Site struct {
 	} `json:"health"`
 	Name             string  `json:"name"`
 	NumNewAlarms     int     `json:"num_new_alarms"`
-	LocationAccuracy int     `json:"location_accuracy,omitempty"`
+	LocationAccuracy float64 `json:"location_accuracy,omitempty"`
 	LocationLat      float64 `json:"location_lat,omitempty"`
 	LocationLng      float64 `json:"location_lng,omitempty"`
 }
