@@ -7,6 +7,8 @@ type Site struct {
 	Description string `json:"desc"`
 	Name        string `json:"name"`
 	NumAPs      int    `json:"num_ap"`
+	NumUsers    int    `json:"num_user"`
+	NumGuests   int    `json:"num_guest"`
 	NumStations int    `json:"num_sta"`
 	Role        string `json:"role"`
 }
@@ -19,7 +21,7 @@ func (c *Client) Sites() ([]*Site, error) {
 
 	req, err := c.newRequest(
 		"GET",
-		"/api/self/sites",
+		"/api/stat/sites",
 		nil,
 	)
 	if err != nil {
@@ -27,5 +29,10 @@ func (c *Client) Sites() ([]*Site, error) {
 	}
 
 	_, err = c.do(req, &v)
+
+	for i, s := range v.Sites {
+		v.Sites[i].NumStations = s.NumGuests + s.NumUsers
+	}
+
 	return v.Sites, err
 }
