@@ -25,7 +25,6 @@ func (c *Client) Devices(siteName string) ([]*Device, error) {
 // API.
 type Device struct {
 	ID                   string           `json:"_id"`
-	Uptime               int              `json:"_uptime"`
 	Adopted              bool             `json:"adopted"`
 	AtfEnabled           bool             `json:"atf_enabled"`
 	BandsteeringMode     string           `json:"bandsteering_mode"`
