@@ -221,22 +221,22 @@ type RadioNg struct {
 }
 
 type RadioTable struct {
-	AntennaGain    int    `json:"antenna_gain"`
-	BuiltinAntGain int    `json:"builtin_ant_gain"`
-	BuiltinAntenna bool   `json:"builtin_antenna"`
-	Channel        string `json:"channel"`
-	HasDfs         bool   `json:"has_dfs"`
-	HasFccdfs      bool   `json:"has_fccdfs"`
-	Ht             string `json:"ht"`
-	Is11Ac         bool   `json:"is_11ac"`
-	MaxTxpower     int    `json:"max_txpower"`
-	MinRssi        int    `json:"min_rssi"`
-	MinRssiEnabled bool   `json:"min_rssi_enabled"`
-	MinTxpower     int    `json:"min_txpower"`
-	Name           string `json:"name"`
-	Nss            int    `json:"nss"`
-	Radio          string `json:"radio"`
-	TxPowerMode    string `json:"tx_power_mode"`
+	AntennaGain    int         `json:"antenna_gain"`
+	BuiltinAntGain int         `json:"builtin_ant_gain"`
+	BuiltinAntenna bool        `json:"builtin_antenna"`
+	Channel        json.Number `json:"channel"`
+	HasDfs         bool        `json:"has_dfs"`
+	HasFccdfs      bool        `json:"has_fccdfs"`
+	Ht             string      `json:"ht"`
+	Is11Ac         bool        `json:"is_11ac"`
+	MaxTxpower     int         `json:"max_txpower"`
+	MinRssi        int         `json:"min_rssi"`
+	MinRssiEnabled bool        `json:"min_rssi_enabled"`
+	MinTxpower     int         `json:"min_txpower"`
+	Name           string      `json:"name"`
+	Nss            int         `json:"nss"`
+	Radio          string      `json:"radio"`
+	TxPowerMode    string      `json:"tx_power_mode"`
 }
 
 type Stat struct {
