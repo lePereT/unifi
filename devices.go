@@ -224,7 +224,7 @@ type RadioTable struct {
 	AntennaGain    int    `json:"antenna_gain"`
 	BuiltinAntGain int    `json:"builtin_ant_gain"`
 	BuiltinAntenna bool   `json:"builtin_antenna"`
-	Channel        int    `json:"channel"`
+	Channel        string `json:"channel"`
 	HasDfs         bool   `json:"has_dfs"`
 	HasFccdfs      bool   `json:"has_fccdfs"`
 	Ht             string `json:"ht"`
