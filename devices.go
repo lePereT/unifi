@@ -34,7 +34,7 @@ type Device struct {
 	BytesD               int              `json:"bytes-d"`
 	BytesR               int              `json:"bytes-r"`
 	Cfgversion           string           `json:"cfgversion"`
-	ConfigNetwork        []*ConfigNetwork `json:"config_network"`
+	ConfigNetwork        *ConfigNetwork   `json:"config_network"`
 	ConnectRequestIP     string           `json:"connect_request_ip"`
 	ConnectRequestPort   string           `json:"connect_request_port"`
 	DeviceID             string           `json:"device_id"`
