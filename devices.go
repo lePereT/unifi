@@ -1,6 +1,7 @@
 package unifi
 
 import "fmt"
+import "encoding/json"
 
 // Devices returns all of the Devices for a specified site name.
 func (c *Client) Devices(siteName string) ([]*Device, error) {
@@ -83,9 +84,9 @@ type Device struct {
 	NgState              string           `json:"ng-state"`
 	NgTxPower            int              `json:"ng-tx_power"`
 	NgUserNumSta         int              `json:"ng-user-num_sta"`
-	NgAstBeXmit          int              `json:"ng_ast_be_xmit"`
-	NgAstCst             *string          `json:"ng_ast_cst"`
-	NgAstTxto            *string          `json:"ng_ast_txto"`
+	NgAstBeXmit          json.Number      `json:"ng_ast_be_xmit"`
+	NgAstCst             json.Number      `json:"ng_ast_cst"`
+	NgAstTxto            json.Number      `json:"ng_ast_txto"`
 	NgCuSelfRx           int              `json:"ng_cu_self_rx"`
 	NgCuSelfTx           int              `json:"ng_cu_self_tx"`
 	NgCuTotal            int              `json:"ng_cu_total"`
@@ -131,10 +132,8 @@ type Device struct {
 	Upgradable           bool             `json:"upgradable,omitempty"`
 	UpgradeToFirmware    string           `json:"upgrade_to_firmware,omitempty"`
 	DiscoveredVia        string           `json:"discovered_via,omitempty"`
-	LastUplink           struct {
-		UplinkMac string `json:"uplink_mac"`
-	} `json:"last_uplink,omitempty"`
-	UplinkApMac string `json:"uplink_ap_mac,omitempty"`
+	LastUplink           LastUplink       `json:"last_uplink,omitempty"`
+	UplinkApMac          string           `json:"uplink_ap_mac,omitempty"`
 }
 
 type ConfigNetwork struct {
@@ -439,4 +438,8 @@ type UplinkTable struct {
 type VwireTable struct {
 	ApMac string `json:"ap_mac"`
 	Radio string `json:"radio"`
+}
+
+type LastUplink struct {
+	UplinkMac string `json:"uplink_mac"`
 }
