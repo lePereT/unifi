@@ -38,6 +38,7 @@ type Device struct {
 	ConnectRequestIP     string           `json:"connect_request_ip"`
 	ConnectRequestPort   string           `json:"connect_request_port"`
 	DeviceID             string           `json:"device_id"`
+	DiscoveredVia        string           `json:"discovered_via"`
 	DownlinkTable        []*DownlinkTable `json:"downlink_table"`
 	EthernetTable        []*EthernetTable `json:"ethernet_table"`
 	FwCaps               int              `json:"fw_caps"`
@@ -52,6 +53,7 @@ type Device struct {
 	Isolated             bool             `json:"isolated"`
 	KnownCfgversion      string           `json:"known_cfgversion"`
 	LastSeen             int              `json:"last_seen"`
+	LastUplink           LastUplink       `json:"last_uplink"`
 	LedOverride          string           `json:"led_override"`
 	Locating             bool             `json:"locating"`
 	Mac                  string           `json:"mac"`
@@ -90,12 +92,14 @@ type Device struct {
 	NgCuSelfRx           int              `json:"ng_cu_self_rx"`
 	NgCuSelfTx           int              `json:"ng_cu_self_tx"`
 	NgCuTotal            int              `json:"ng_cu_total"`
+	NgLastInterferenceAt int              `json:"ng_last_interference_at"`
 	NgTxPackets          int              `json:"ng_tx_packets"`
 	NgTxRetries          int              `json:"ng_tx_retries"`
 	NumSta               int              `json:"num_sta"`
-	PortTable            []*string        `json:"port_table"`
-	RadioNa              []*RadioNa       `json:"radio_na"`
-	RadioNg              []*RadioNg       `json:"radio_ng"`
+	PortStats            []*interface{}   `json:"port_stats"`
+	PortTable            []*interface{}   `json:"port_table"`
+	RadioNa              *RadioNa         `json:"radio_na"`
+	RadioNg              *RadioNg         `json:"radio_ng"`
 	RadioTable           []*RadioTable    `json:"radio_table"`
 	RxBytes              int              `json:"rx_bytes"`
 	RxBytesD             int              `json:"rx_bytes-d"`
@@ -103,14 +107,17 @@ type Device struct {
 	Serial               string           `json:"serial"`
 	SiteID               string           `json:"site_id"`
 	SpectrumScanning     bool             `json:"spectrum_scanning"`
-	SSHSessionTable      []*string        `json:"ssh_session_table"`
-	Stat                 []*Stat          `json:"stat"`
+	SSHSessionTable      []*interface{}   `json:"ssh_session_table"`
+	Stat                 *Stat            `json:"stat"`
 	State                int              `json:"state"`
-	SysStats             []*SysStats      `json:"sys_stats"`
+	SysStats             *SysStats        `json:"sys_stats"`
 	TxBytes              int64            `json:"tx_bytes"`
 	TxBytesD             int              `json:"tx_bytes-d"`
 	Type                 string           `json:"type"`
-	Uplink               []*Uplink        `json:"uplink"`
+	Upgradable           bool             `json:"upgradable"`
+	UpgradeToFirmware    string           `json:"upgrade_to_firmware"`
+	Uplink               *Uplink          `json:"uplink"`
+	UplinkApMac          string           `json:"uplink_ap_mac"`
 	UplinkTable          []*UplinkTable   `json:"uplink_table"`
 	Uptime               int              `json:"uptime"`
 	UserNumSta           int              `json:"user-num_sta"`
@@ -127,13 +134,6 @@ type Device struct {
 	XHasSSHHostkey       bool             `json:"x_has_ssh_hostkey"`
 	XVwirekey            string           `json:"x_vwirekey"`
 	Y                    float64          `json:"y"`
-	NgLastInterferenceAt int              `json:"ng_last_interference_at,omitempty"`
-	PortStats            []*string        `json:"port_stats,omitempty"`
-	Upgradable           bool             `json:"upgradable,omitempty"`
-	UpgradeToFirmware    string           `json:"upgrade_to_firmware,omitempty"`
-	DiscoveredVia        string           `json:"discovered_via,omitempty"`
-	LastUplink           LastUplink       `json:"last_uplink,omitempty"`
-	UplinkApMac          string           `json:"uplink_ap_mac,omitempty"`
 }
 
 type ConfigNetwork struct {
@@ -225,7 +225,10 @@ type RadioTable struct {
 	BuiltinAntGain int    `json:"builtin_ant_gain"`
 	BuiltinAntenna bool   `json:"builtin_antenna"`
 	Channel        int    `json:"channel"`
+	HasDfs         bool   `json:"has_dfs"`
+	HasFccdfs      bool   `json:"has_fccdfs"`
 	Ht             string `json:"ht"`
+	Is11Ac         bool   `json:"is_11ac"`
 	MaxTxpower     int    `json:"max_txpower"`
 	MinRssi        int    `json:"min_rssi"`
 	MinRssiEnabled bool   `json:"min_rssi_enabled"`
@@ -234,9 +237,6 @@ type RadioTable struct {
 	Nss            int    `json:"nss"`
 	Radio          string `json:"radio"`
 	TxPowerMode    string `json:"tx_power_mode"`
-	HasDfs         bool   `json:"has_dfs,omitempty"`
-	HasFccdfs      bool   `json:"has_fccdfs,omitempty"`
-	Is11Ac         bool   `json:"is_11ac,omitempty"`
 }
 
 type Stat struct {
@@ -363,6 +363,7 @@ type VapTable struct {
 	Ccq        int    `json:"ccq"`
 	Channel    int    `json:"channel"`
 	Essid      string `json:"essid"`
+	Extchannel int    `json:"extchannel"`
 	ID         string `json:"id"`
 	IsGuest    bool   `json:"is_guest"`
 	IsWep      bool   `json:"is_wep"`
@@ -389,7 +390,6 @@ type VapTable struct {
 	Up         bool   `json:"up"`
 	Usage      string `json:"usage"`
 	WlanconfID string `json:"wlanconf_id"`
-	Extchannel int    `json:"extchannel,omitempty"`
 }
 
 type UplinkTable struct {
