@@ -14,7 +14,6 @@ func (c *Client) Sites() ([]*Site, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	_, err = c.do(req, &v)
 
 	req, err = c.newRequest(
@@ -25,7 +24,6 @@ func (c *Client) Sites() ([]*Site, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	_, err = c.do(req, &v)
 
 	return v.Sites, err
@@ -40,7 +38,7 @@ type Site struct {
 	Desc             string    `json:"desc"`
 	Health           []*Health `json:"health"`
 	Name             string    `json:"name"`
-	NumNewAlarms     int       `json:"num_new_alarms"`
+	NumNewAlarms     int64     `json:"num_new_alarms"`
 	LocationAccuracy float64   `json:"location_accuracy"`
 	LocationLat      float64   `json:"location_lat"`
 	LocationLng      float64   `json:"location_lng"`
@@ -49,17 +47,17 @@ type Site struct {
 
 // Health is a thing
 type Health struct {
-	NumAdopted      int    `json:"num_adopted"`
-	NumAp           int    `json:"num_ap"`
-	NumDisabled     int    `json:"num_disabled"`
-	NumDisconnected int    `json:"num_disconnected"`
-	NumGuest        int    `json:"num_guest"`
-	NumPending      int    `json:"num_pending"`
-	NumUser         int    `json:"num_user"`
-	RxBytesR        int    `json:"rx_bytes-r"`
+	NumAdopted      int64  `json:"num_adopted"`
+	NumAp           int64  `json:"num_ap"`
+	NumDisabled     int64  `json:"num_disabled"`
+	NumDisconnected int64  `json:"num_disconnected"`
+	NumGuest        int64  `json:"num_guest"`
+	NumPending      int64  `json:"num_pending"`
+	NumUser         int64  `json:"num_user"`
+	RxBytesR        int64  `json:"rx_bytes-r"`
 	Status          string `json:"status"`
 	Subsystem       string `json:"subsystem"`
-	TxBytesR        int    `json:"tx_bytes-r"`
-	NumGw           int    `json:"num_gw"`
-	NumSw           int    `json:"num_sw"`
+	TxBytesR        int64  `json:"tx_bytes-r"`
+	NumGw           int64  `json:"num_gw"`
+	NumSw           int64  `json:"num_sw"`
 }
